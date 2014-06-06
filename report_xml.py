@@ -38,13 +38,13 @@ import base64, binascii
 from openerp import tools
 import encodings
 from openerp.tools.translate import _
-from openerp.report.report_sxw import report_sxw
+from openerp.report.report_sxw import report_sxw, report_rml
 
 import imp, sys, os
 import zipimport
 from openerp.tools.config import config
 from lxml import etree
-
+import operator
 
 class report_stylesheets(osv.osv):
     '''
