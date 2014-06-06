@@ -28,7 +28,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 ##############################################################################
-
+import openerp
 from openerp.osv import osv, fields
 from openerp.osv.orm import transfer_modifiers_to_node
 from openerp import netsvc
@@ -697,28 +697,31 @@ class report_xml(osv.osv):
         # First lookup in the deprecated place, because if the report definition
         # has not been updated, it is more likely the correct definition is there.
         # Only reports with custom parser sepcified in Python are still there.
-        cr.execute("SELECT * FROM ir_act_report_xml WHERE report_name=%s", (name,))
-        r = cr.dictfetchone()
-        if r:
-            if r['report_type'] in ['qweb-pdf', 'qweb-html']:
-                return r['report_name']
-            elif r['report_type'] == 'aeroo':
-                new_report = self.unregister_report(cr, r['report_name'])
-            elif r['report_rml'] or r['report_rml_content_data']:
-                if r['parser']:
-                    kwargs = {'parser': operator.attrgetter(r['parser'])(openerp.addons)}
-                else:
-                    kwargs = {}
-                new_report = report_sxw('report.' + r['report_name'], r['model'],
-                    opj('addons', r['report_rml'] or '/'), header=r['header'], register=False, **kwargs)
-            elif r['report_xsl'] and r['report_xml']:
-                new_report = report_rml('report.' + r['report_name'], r['model'],
-                    opj('addons', r['report_xml']),
-                    r['report_xsl'] and opj('addons', r['report_xsl']), register=False)
-            else:
-                raise Exception, "Unhandled report type: %s" % r
+        if 'report.' + name in openerp.report.interface.report_int._reports:
+            new_report = openerp.report.interface.report_int._reports['report.' + name]
         else:
-            raise Exception, "Required report does not exist: %s" % r
+            cr.execute("SELECT * FROM ir_act_report_xml WHERE report_name=%s", (name,))
+            r = cr.dictfetchone()
+            if r:
+                if r['report_type'] in ['qweb-pdf', 'qweb-html']:
+                    return r['report_name']
+                elif r['report_type'] == 'aeroo':
+                    new_report = self.unregister_report(cr, r['report_name'])
+                elif r['report_rml'] or r['report_rml_content_data']:
+                    if r['parser']:
+                        kwargs = {'parser': operator.attrgetter(r['parser'])(openerp.addons)}
+                    else:
+                        kwargs = {}
+                    new_report = report_sxw('report.' + r['report_name'], r['model'],
+                        opj('addons', r['report_rml'] or '/'), header=r['header'], register=False, **kwargs)
+                elif r['report_xsl'] and r['report_xml']:
+                    new_report = report_rml('report.' + r['report_name'], r['model'],
+                        opj('addons', r['report_xml']),
+                        r['report_xsl'] and opj('addons', r['report_xsl']), register=False)
+                else:
+                    raise Exception, "Unhandled report type: %s" % r
+            else:
+                raise Exception, "Required report does not exist: %s (Type: %s" % r
 
         return new_report
 
