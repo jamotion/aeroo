@@ -36,8 +36,7 @@ class Report(Model):
             new_report_name = name
         return new_report_name
 
-    def get_action(self, cr, uid, ids, report_name, data=None, context=None):
+    def get_action(self, cr, uid, ids, report_name, datas=None, context=None):
         return super(Report, self).get_action(
             cr, uid, ids,
-            self._get_replacing_report(cr, report_name),
-            data=data, context=context)
+            self._get_replacing_report(cr, report_name), datas=datas, context=context)
