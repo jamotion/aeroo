@@ -6,7 +6,7 @@
             <field name="model">aeroo.remove_print_button</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Remove Print Button" version="7.0">
+                <form string="Remove Print Button" >
                     <group attrs="{'invisible':[('state','&lt;&gt;','remove')]}">
                         <label string="Or you want to remove print button for this report?"/>
                     </group>
