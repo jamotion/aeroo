@@ -19,12 +19,10 @@
                             <label string="The print button is successfully added."/>
                         </group>
                     </group>
-                    <footer>
                         <group>
                             <button name="do_action" string="_Ok" states="add" type="object"/>
                             <button special="cancel" string="_Cancel" states="add,exist,exception,done"/>
                         </group>
-                    </footer>
                     <field name="state" invisible="1"/>
                 </form>
             </field>
