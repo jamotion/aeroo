@@ -130,6 +130,7 @@
         <record id="act_aeroo_print_actions_view_form" model="ir.ui.view">
             <field name="name">aeroo.print_actions.form</field>
             <field name="model">aeroo.print_actions</field>
+ 	    <field name="priority">16</field>
             <field name="arch" type="xml">
                 <form string="Printing Options" >
                     <field name="state" invisible="1"/>
@@ -141,12 +142,10 @@
                     <group states="confirm" expand="1" colspan="4">
                         <field name="message" colspan="4" nolabel="1" readonly="1"/>
                     </group>
-                    <footer>
                         <button icon="gtk-yes" name="start_deferred" string="_Yes" type="object" states="confirm"/>
                         <button icon="gtk-no" name="simple_print" string="_No" type="object" states="confirm"/>
                         <button icon="gtk-cancel" special="cancel" string="_Cancel" type="object"/>
                         <button icon="gtk-print" name="to_print" string="_Print" type="object" states="draft"/>
-                    </footer>
                 </form>
             </field>
         </record>
@@ -160,10 +159,8 @@
                         <field name="name"/>
                         <field name="object_ids" default_focus="1"/>
                    </group>
-                    <footer>
                         <button icon="gtk-close" special="cancel" string="Close" type="object"/>
                         <button icon="gtk-print" name="to_print" string="Print" type="object" default_focus="1"/>
-                    </footer>
                 </form>
             </field>
         </record>
@@ -182,11 +179,9 @@
                         <field name="info" nolabel="1" width="320" height="200"/>
                         <separator colspan="4"/>
                     </group>
-                    <footer>
                         <button icon="gtk-close" special="cancel" string="Close" type="object"/>
                         <button icon="gtk-go-forward" name="next" string="Next" type="object" default_focus="1" states="draft"/>
                         <button icon="gtk-execute" name="install_report" string="Install" type="object" default_focus="1" states="info"/>
-                    </footer>
                     <field name="state" invisible="1"/>
                 </form>
             </field>

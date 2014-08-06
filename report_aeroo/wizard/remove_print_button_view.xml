@@ -16,13 +16,11 @@
                     <group attrs="{'invisible':[('state','&lt;&gt;','done')]}">
                         <label string="The print button is successfully removed."/>
                     </group>
-                    <footer>
                         <group>
                             <button name="do_action" string="_Ok" states="remove" type="object"/>
                             <button special="cancel" string="_No" states="remove"/>
                             <button special="cancel" string="_Cancel" states="no_exist,done"/>
                         </group>
-                    </footer>
                     <field name="state" invisible="1"/>
                 </form>
             </field>
