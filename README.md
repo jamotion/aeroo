@@ -15,6 +15,7 @@ Installation instructions
 
     sudo apt-get install libreoffice python-genshi python-cairo python-lxml python-setuptools
     sudo apt-get install libreoffice-script-provider-python
+    easy_install uno
     
 ### Install aeroolib
 
