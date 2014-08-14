@@ -10,6 +10,17 @@ This Repository contains the following OpenERP / Odoo Plugins:
 
 Installation instructions
 -------------------------
+
+### Install required packages
+
+    sudo apt-get install libreoffice python-genshi python-cairo python-lxml python-setuptools
+    
+### Install aeroolib
+
+    git clone https://github.com/jamotion/aeroolib.git
+    cd aeroolib
+    python setup.py install
+    
 Please check the official documentation for Aeroo Reports Installation
 (see http://www.alistek.com/wiki/index.php/Aeroo_Reports_Linux_server).
 
