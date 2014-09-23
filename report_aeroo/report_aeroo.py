@@ -37,7 +37,7 @@ from tempfile import NamedTemporaryFile
 from openerp import report
 from openerp.report.report_sxw import report_sxw, report_rml
 from openerp.osv.orm import browse_record_list
-from openerp.report.pyPdf import PdfFileWriter, PdfFileReader
+from pyPdf import PdfFileWriter, PdfFileReader
 from openerp.addons.report_aeroo_ooo import report as rpt
 #import zipfile
 try:
@@ -168,8 +168,8 @@ class Aeroo_report(report_sxw):
     def getObjects_mod(self, cr, uid, ids, rep_type, context):
         table_obj = pooler.get_pool(cr.dbname).get(self.table)
         if rep_type=='aeroo':
-            return table_obj.browse(cr, uid, ids, list_class=browse_record_list, context=context)
-        return table_obj.browse(cr, uid, ids, list_class=browse_record_list, context=context)
+            return table_obj.browse(cr, uid, ids, context=context)
+        return table_obj.browse(cr, uid, ids, context=context)
 
     ##### Counter functions #####
     def _def_inc(self, aeroo_print):
@@ -801,16 +801,12 @@ class Aeroo_report(report_sxw):
                 [('report_name', '=', name)], context=context)
         if report_xml_ids:
             report_xml = ir_obj.browse(cr, uid, report_xml_ids[0], context=context)
-            report_xml.report_rml = None
-            report_xml.report_rml_content = None
-            report_xml.report_sxw_content_data = None
-            report_rml.report_sxw_content = None
-            report_rml.report_sxw = None
+            copies = report_xml.copies
             copies_ids = []
-            if not report_xml.report_wizard and report_xml>1:
+            if not report_xml.report_wizard and copies>1:
                 while(report_xml.copies):
                     copies_ids.extend(ids)
-                    report_xml.copies -= 1
+                    copies -= 1
             ids = copies_ids or ids
         else:
             title = ''

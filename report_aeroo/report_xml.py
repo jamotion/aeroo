@@ -54,7 +54,7 @@ class report_stylesheets(osv.osv):
     _description = 'Report Stylesheets'
 
     _columns = {
-        'name': fields.char('Name', size=64, required=True),
+        'name': fields.char('Name', required=True),
         'report_styles': fields.binary('Template Stylesheet', help='OpenOffice.org stylesheet (.odt)'),
 
     }
@@ -77,10 +77,10 @@ class report_mimetypes(osv.osv):
     _description = 'Report Mime-Types'
 
     _columns = {
-        'name': fields.char('Name', size=64, required=True, readonly=True),
-        'code': fields.char('Code', size=16, required=True, readonly=True),
-        'compatible_types': fields.char('Compatible Mime-Types', size=128, readonly=True),
-        'filter_name': fields.char('Filter Name', size=128, readonly=True),
+        'name': fields.char('Name', required=True, readonly=True),
+        'code': fields.char('Code', required=True, readonly=True),
+        'compatible_types': fields.char('Compatible Mime-Types', readonly=True),
+        'filter_name': fields.char('Filter Name', readonly=True),
 
     }
 
@@ -344,7 +344,7 @@ class report_xml(osv.osv):
 
     _columns = {
         'charset': fields.selection(_get_encodings, string='Charset', required=True),
-        'content_fname': fields.char('Override Extension', size=64, help='Here you can override output file extension'),
+        'content_fname': fields.char('Override Extension', help='Here you can override output file extension'),
         'styles_mode': fields.selection([
             ('default', 'Not used'),
             ('global', 'Global'),
@@ -361,7 +361,7 @@ class report_xml(osv.osv):
             ('parser', 'Parser'),
         ], 'Template source', select=True),
         'parser_def': fields.text('Parser Definition'),
-        'parser_loc': fields.char('Parser location', size=128,
+        'parser_loc': fields.char('Parser location',
             help="Path to the parser location. Beginning of the path must be start with the module name!\nLike this: {module name}/{path to the parser.py file}"),
         'parser_state': fields.selection([
             ('default', _('Default')),
@@ -377,9 +377,9 @@ class report_xml(osv.osv):
         'report_wizard': fields.boolean('Report Wizard'),
         'copies': fields.integer('Number of Copies'),
         'fallback_false': fields.boolean('Disable Format Fallback'),
-        'xml_id': fields.function(_get_xml_id, type='char', size=128, string="XML ID",
+        'xml_id': fields.function(_get_xml_id, type='char', string="XML ID",
             method=True, help="ID of the report defined in xml file"),
-        'extras': fields.function(_get_extras, method=True, type='char', size='256', string='Extra options'),
+        'extras': fields.function(_get_extras, method=True, type='char', string='Extra options'),
         'deferred': fields.selection([
             ('off', _('Off')),
             ('adaptive', _('Adaptive')),
