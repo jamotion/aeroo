@@ -43,8 +43,6 @@ except ImportError:
     from StringIO import StringIO
 from openerp.tools.translate import _
 
-from DocumentConverter import DocumentConversionException
-
 _url = 'http://www.alistek.com/aeroo_banner/v7_0_report_aeroo_ooo.png'
 
 import threading
@@ -111,6 +109,8 @@ class aeroo_config_installer(osv.osv_memory):
         return data
 
     def check(self, cr, uid, ids, context=None):
+        from DocumentConverter import DocumentConversionException
+
         config_obj = self.pool.get('oo.config')
         data = self.read(cr, uid, ids, ['host','port','ooo_restart_cmd'])[0]
         del data['id']
@@ -165,3 +165,18 @@ class aeroo_config_installer(osv.osv_memory):
         'link':'http://www.alistek.com/wiki/index.php/Aeroo_Reports_Linux_server#Installation_.28Dependencies_and_Base_system_setup.29',
     }
 
+    def _register_hook(self, cr):
+        check_list = [
+            'import uno',
+            'import unohelper',
+            'from com.sun.star.beans import PropertyValue',
+            'from com.sun.star.uno import Exception as UnoException',
+            'from com.sun.star.connection import NoConnectException, ConnectionSetupException',
+            'from com.sun.star.beans import UnknownPropertyException',
+            'from com.sun.star.lang import IllegalArgumentException',
+            'from com.sun.star.io import XOutputStream',
+            'from com.sun.star.io import IOException',
+        ]
+
+        from check_deps import check_deps
+        check_deps(check_list)
