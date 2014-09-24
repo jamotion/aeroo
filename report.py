@@ -31,7 +31,11 @@
 
 from openerp.osv import osv,fields
 from openerp import netsvc
-from DocumentConverter import DocumentConverter
+try:
+    from DocumentConverter import DocumentConverter
+except NameError:
+    class DocumentConverter:
+        pass
 
 class OpenOffice_service (DocumentConverter):
 
