@@ -132,7 +132,6 @@ class aeroo_config_installer(osv.osv_memory):
                 DC.closeDocument()
                 del DC
         except DocumentConversionException, e:
-            openerp.netsvc.Service.remove('report.openoffice')
             error_details = str(e)
             state = 'error'
         except Exception, e:
