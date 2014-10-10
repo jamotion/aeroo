@@ -29,18 +29,6 @@
 #
 ##############################################################################
 
-check_list = [
-    'import uno',
-    'import unohelper',
-    'from com.sun.star.beans import PropertyValue',
-    'from com.sun.star.uno import Exception as UnoException',
-    'from com.sun.star.connection import NoConnectException, ConnectionSetupException',
-    'from com.sun.star.beans import UnknownPropertyException',
-    'from com.sun.star.lang import IllegalArgumentException',
-    'from com.sun.star.io import XOutputStream',
-    'from com.sun.star.io import IOException',
-]
-
 DEFAULT_OPENOFFICE_PATH = [
     "C:\Program Files\OpenOffice.org 3\Basis\program",
     "C:\Program Files\OpenOffice.org 3\program",
@@ -66,15 +54,5 @@ if sys.platform=='win32':
     except WindowsError, e:
         sys.path.extend(platform.machine()=='x86' and DEFAULT_OPENOFFICE_PATH or DEFAULT_OPENOFFICE_PATH_AMD64)
 
-from check_deps import check_deps
-check_deps(check_list)
-
-try:
-    import DocumentConverter
-except ImportError, e:
-    print e
-
 import installer
 import report
-
-

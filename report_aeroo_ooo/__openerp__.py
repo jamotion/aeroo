@@ -59,4 +59,7 @@ ods -> csv
     "license" : "GPL-3 or any later version",
     'installable': True,
     'active': False,
+    "external_dependencies": {
+            'python': ['uno', 'unohelper'],
+        }
 }
