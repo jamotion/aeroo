@@ -38,7 +38,6 @@ from openerp import report
 from openerp.report.report_sxw import report_sxw, report_rml
 from openerp.osv.orm import browse_record_list
 from pyPdf import PdfFileWriter, PdfFileReader
-from openerp.addons.report_aeroo_ooo import report as rpt
 #import zipfile
 try:
     from cStringIO import StringIO
@@ -559,8 +558,11 @@ class Aeroo_report(report_sxw):
             self._raise_exception(e, print_id)
 
         ######### OpenOffice extras #########
-        #DC = netsvc.Service._services.get('openoffice')
-        DC = rpt.OpenOffice_service(cr, 'localhost', 8100)
+        if aeroo_ooo:
+            from openerp.addons.report_aeroo_ooo import report as rpt
+            DC = rpt.OpenOffice_service(cr, 'localhost', 8100)
+        else:
+            DC = False
         #if (output!=report_xml.in_format[3:] or self.oo_subreports.get(print_id)):
         if output!=report_xml.in_format[3:] or aeroo_print.subreports:
             if aeroo_ooo and DC:
@@ -760,7 +762,11 @@ class Aeroo_report(report_sxw):
                      self.logger(_("Create attachment error!")+'\n'+str(e), logging.ERROR)
                 results.append(result)
 
-        DC = rpt.OpenOffice_service(cr, 'localhost', 8100)
+        if aeroo_ooo:
+            from openerp.addons.report_aeroo_ooo import report as rpt
+            DC = rpt.OpenOffice_service(cr, 'localhost', 8100)
+        else:
+            DC = False
         if results and len(results)==1:
             return results[0]
         elif results and DC:
