@@ -8,6 +8,12 @@ This Repository contains the following OpenERP / Odoo Plugins:
 - **report_aeroo_ooo:** Module for OpenOffice Integration of Aeroo Reports
 - **report_aeroo_sample:** Sample Report for testing the Aeroo Reports
 
+These plugins are available as separate git repositories for simpler installation:
+----------------------------------------------------------------------------------
+- https://github.com/jamotion/report_aeroo.git
+- https://github.com/jamotion/report_aeroo_ooo.git
+- https://github.com/jamotion/report_aeroo_sample.git
+
 Installation instructions
 -------------------------
 
