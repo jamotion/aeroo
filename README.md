@@ -26,7 +26,13 @@ Installation instructions
 Please check the official documentation for Aeroo Reports Installation
 (see http://www.alistek.com/wiki/index.php/Aeroo_Reports_Linux_server).
 
+### Download depending modules
+    
+    git clone https://github.com/Sandwych/equinox/tree/master/src/addons/base_field_serialized
+    
+    
 Instead of downloading the official aeroo modules (bzr branch https://launchpad.net/aeroo) please use this git repository (git clone https://github.com/jamotion/aeroo.git)
+
 
 Warning!
 --------
