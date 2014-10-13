@@ -106,8 +106,10 @@ def extend_trans_generate(lang, modules, cr):
 
         if model=='ir.ui.view':
             d = etree.XML(encode(obj.arch))
-            for t in trans_parse_view(d):
-                push_translation(module, 'view', encode(obj.model), 0, t)
+            #for t in trans_parse_view(d):
+            #    push_translation(module, 'view', encode(obj.model), 0, t)
+            trans_parse_view(d, lambda t,s: push_translation(module, 'view', encode(obj.model), 0, t))
+
         elif model=='ir.actions.wizard':
             service_name = 'wizard.'+encode(obj.wiz_name)
             import openerp.netsvc as netsvc
@@ -237,7 +239,7 @@ def extend_trans_generate(lang, modules, cr):
                     except (IOError, etree.XMLSyntaxError):
                         _logger.exception("couldn't export translation for report %s %s %s", name, report_type, fname)
 
-        for field_name,field_def in obj._table._columns.items():
+        for field_name,field_def in obj._columns.items():
             if field_def.translate:
                 name = model + "," + field_name
                 try:

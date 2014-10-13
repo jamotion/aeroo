@@ -80,7 +80,7 @@ class aeroo_add_print_button(osv.osv_memory):
         event_id = self.pool.get('ir.values').set_action(cr, uid, report.report_name, 'client_print_multi', report.model, 'ir.actions.report.xml,%d' % context['active_id'])
         if report.report_wizard:
             report._set_report_wizard(report.id)
-        this.write({'state':'done'}, context=context)
+        this.write({'state':'done'})
         if not this.open_action:
             return _reopen(self, this.id, this._model)
 
