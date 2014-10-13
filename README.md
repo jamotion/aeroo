@@ -28,7 +28,7 @@ Please check the official documentation for Aeroo Reports Installation
 
 ### Download depending modules
     
-    git clone https://github.com/Sandwych/equinox/tree/master/src/addons/base_field_serialized
+    git clone https://github.com/Sandwych/equinox.git
     
     
 Instead of downloading the official aeroo modules (bzr branch https://launchpad.net/aeroo) please use this git repository (git clone https://github.com/jamotion/aeroo.git)
