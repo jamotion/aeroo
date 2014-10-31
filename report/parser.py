@@ -39,6 +39,6 @@ class Parser(report_sxw.rml_parse):
         })
 
     def _hello_world(self, name):
-        return "Hello guy, %s!" % name
+        return "Hello guy, %s!" % self.datas['form']['partner_id']
 
 

@@ -39,7 +39,7 @@
 	"category" : "Generic Modules/Aeroo Reporting",
 	"init_xml" : [],
 	"demo_xml" : [],
-	"update_xml" : ["report/report_sample.xml"],
+	"data" : ["report/report_sample.xml", "wizard/sample_report_view.xml"],
 	"installable": True,
     "license" : "GPL-3 or any later version",
 }
