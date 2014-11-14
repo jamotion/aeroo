@@ -1,15 +1,16 @@
 Aeroo Reports for OpenERP / Odoo 8.0
 ====================================
 
-This Repository contains the following OpenERP / Odoo Plugins:
---------------------------------------------------------------
+Parts of Aeroo Reports
+----------------------
+
+Aeroo Reports is splitted into three Odoo plugins:
 
 - **report_aeroo:** The main Aeroo Reports Module
 - **report_aeroo_ooo:** Module for OpenOffice Integration of Aeroo Reports
 - **report_aeroo_sample:** Sample Report for testing the Aeroo Reports
 
-These plugins are available as separate git repositories for direct usage without copying. All of them are included into this repository as subtree's.
-
+These plugins are available as separate git repositories for direct usage. 
 Here are the specified repositories:
 
 - https://github.com/jamotion/report_aeroo.git
@@ -31,16 +32,22 @@ Installation instructions
     cd aeroolib
     python setup.py install
     
-Please check the official documentation for Aeroo Reports Installation
+Please check the official documentation for further informations on Aeroo Reports Installation
 (see http://www.alistek.com/wiki/index.php/Aeroo_Reports_Linux_server).
 
-### Download depending modules
+### Download and install depending modules
     
-    git clone https://github.com/Sandwych/equinox.git
+    git clone https://github.com/jamotion/base_field_serialized
     
-    
-Instead of downloading the official aeroo modules (bzr branch https://launchpad.net/aeroo) please use this git repository (git clone https://github.com/jamotion/aeroo.git)
+Because of Odoo has removed the field type "serialized" the above plugin is needed to reimplement this field type.
 
+### Install Aeroo Reports    
+Instead of downloading the official aeroo modules (bzr branch https://launchpad.net/aeroo) please use these Repositories:
+
+    cd /your/addons/dir/
+    git clone https://github.com/jamotion/report_aeroo.git
+    git clone https://github.com/jamotion/report_aeroo_ooo.git
+    git clone https://github.com/jamotion/report_aeroo_sample.git
 
 Warning!
 --------
