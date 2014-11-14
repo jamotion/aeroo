@@ -39,7 +39,7 @@ import StringIO
 from PIL import Image
 from openerp import pooler
 import time
-from openerp.osv.orm import browse_null, browse_record
+from openerp.osv.orm import browse_null, browse_record, browse_record_list
 from openerp.report import report_sxw
 from openerp.tools.translate import _
 from openerp import netsvc
@@ -281,7 +281,7 @@ class ExtraFunctions(object):
 
     def _get_name(self, obj):
         if obj.__class__== browse_record:
-            return self.pool.get(obj._table_name).name_get(self.cr, self.uid, [obj.id], {'lang':self._get_lang()})[0][1]
+            return self.pool.get(obj._name).name_get(self.cr, self.uid, [obj.id], {'lang':self._get_lang()})[0][1]
         elif type(obj)==str: # only for fields in root record
             model = self.context['model']
             field, rec_id = obj.split(',')
@@ -297,12 +297,12 @@ class ExtraFunctions(object):
         if not obj:
             return ''
         try:
-            if isinstance(obj, report_sxw.browse_record_list):
+            if isinstance(obj, browse_record_list):
                 obj = obj[0]
             if isinstance(obj, (str,unicode)):
                 model = obj
             else:
-                model = obj._table_name
+                model = obj._name
             if isinstance(obj, (str,unicode)) or hasattr(obj, field):
                 labels = self.pool.get(model).fields_get(self.cr, self.uid, allfields=[field], context=self.context)
                 return labels[field]['string']
@@ -311,12 +311,12 @@ class ExtraFunctions(object):
 
     def _field_size(self, obj, field):
         try:
-            if isinstance(obj, report_sxw.browse_record_list):
+            if isinstance(obj, browse_record_list):
                 obj = obj[0]
             if isinstance(obj, (str,unicode)):
                 model = obj
             else:
-                model = obj._table_name
+                model = obj._name
             if isinstance(obj, (str,unicode)) or hasattr(obj, field):
                 size = self.pool.get(model)._columns[field].size
                 return size
@@ -325,12 +325,12 @@ class ExtraFunctions(object):
 
     def _field_accuracy(self, obj, field):
         try:
-            if isinstance(obj, report_sxw.browse_record_list):
+            if isinstance(obj, browse_record_list):
                 obj = obj[0]
             if isinstance(obj, (str,unicode)):
                 model = obj
             else:
-                model = obj._table_name
+                model = obj._name
             if isinstance(obj, (str,unicode)) or hasattr(obj, field):
                 digits = self.pool.get(model)._columns[field].digits
                 return digits or [16,2]
@@ -340,13 +340,13 @@ class ExtraFunctions(object):
     def _get_selection_items(self, kind='items'):
         def get_selection_item(obj, field, value=None):
             try:
-                if isinstance(obj, report_sxw.browse_record_list):
+                if isinstance(obj, browse_record_list):
                     obj = obj[0]
                 if isinstance(obj, (str,unicode)):
                     model = obj
                     field_val = value
                 else:
-                    model = obj._table_name
+                    model = obj._name
                     field_val = getattr(obj, field)
                 if kind=='item':
                     if field_val:
