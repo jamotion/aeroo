@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="sample_report_view" model="ir.ui.view">
+            <field name="name">Sample Report</field>
+            <field name="model">sample.report</field>
+            <field name="arch" type="xml">
+                <form string="Report Options">
+                    <group col="4">
+                        <field name="title"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sample_report" model="ir.actions.act_window">
+            <field name="name">Sample Report</field>
+            <field name="res_model">sample.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sample_report_view"/>
+            <field name="target">new</field>
+        </record>
+        <menuitem icon="STOCK_PRINT" name="Sample Report" action="action_sample_report" id="menu_sample_report"
+                  parent="base.menu_sales" sequence="100"/>
+    </data>
+</openerp>
