@@ -20,6 +20,7 @@
 ##############################################################################
 from openerp.osv.orm import Model
 from openerp.osv import fields
+from openerp import api
 
 class Report(Model):
     _inherit = 'report'
@@ -36,9 +37,17 @@ class Report(Model):
             new_report_name = name
         return new_report_name
 
+    @api.v7
     def get_action(self, cr, uid, ids, report_name, data=None, context=None):
-
+        if data is None:
+            data = {}
         replacing_report = self._get_replacing_report(cr, report_name)
         action = super(Report, self).get_action(cr, uid, ids, replacing_report, data=data, context=context)
         action['datas'] = action['data']
         return action
+
+    @api.v8
+    def get_action(self, records, report_name, data=None):
+        return self._model.get_action(
+            self._cr, self._uid, records.ids, report_name,
+            data=data, context=self._context)
