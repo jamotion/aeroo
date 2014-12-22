@@ -75,7 +75,7 @@ def extend_trans_generate(lang, modules, cr):
 
     _to_translate = []
     def push_translation(module, type, name, id, source, comments=None):
-        tuple = (module, source, name, id, type, comments or [])
+        tuple = (module, encode(source), name, id, type, comments or [])
         # empty and one-letter terms are ignored, they probably are not meant to be
         # translated, and would be very hard to translate anyway.
         if not source or len(source.strip()) <= 1:
