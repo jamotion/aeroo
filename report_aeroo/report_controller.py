@@ -28,6 +28,11 @@ class ReportController(ReportController):
         '/report/<path:converter>/<reportname>/<docids>',
     ], type='http', auth='user', website=True, multilang=True)
     def report_routes(self, reportname, docids=None, converter=None, **data):
+        data_context = simplejson.loads(data['context'])
+        if not docids:
+            docids_list = data_context.get('active_ids')
+            docids = ",".join(str(x) for x in docids_list)
+            
         return super(ReportController, self).report_routes(
             reportname, docids=docids, converter=converter, **data)
 
