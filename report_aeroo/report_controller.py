@@ -20,6 +20,7 @@
 ##############################################################################
 from openerp.addons.report.controllers.main import ReportController
 from openerp.addons.web.http import route
+import simplejson
 
 class ReportController(ReportController):
 
@@ -28,8 +29,9 @@ class ReportController(ReportController):
         '/report/<path:converter>/<reportname>/<docids>',
     ], type='http', auth='user', website=True, multilang=True)
     def report_routes(self, reportname, docids=None, converter=None, **data):
-        data_context = simplejson.loads(data['context'])
-        if not docids:
+        context = data.get('context')
+        if context and not docids:
+            data_context = simplejson.loads(context)
             docids_list = data_context.get('active_ids')
             docids = ",".join(str(x) for x in docids_list)
             
