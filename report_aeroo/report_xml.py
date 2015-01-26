@@ -392,6 +392,8 @@ class report_xml(osv.osv):
 
     }
 
+    report_type = openerp.fields.Selection(selection_add=[('aeroo', 'Aeroo')])
+
     def fields_view_get(self, cr, user, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         res = super(report_xml, self).fields_view_get(cr, user, view_id, view_type, context, toolbar, submenu)
         if view_type == 'form':
@@ -724,8 +726,3 @@ class report_xml(osv.osv):
                 raise Exception, "Required report does not exist: %s (Type: %s" % r
 
         return new_report
-
-    def __init__(self, pool, cr):
-        self._columns['report_type'].selection.append(('aeroo', 'Aeroo'))
-        return super(report_xml, self).__init__(pool, cr)
-
